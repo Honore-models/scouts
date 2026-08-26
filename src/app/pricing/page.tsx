@@ -75,7 +75,7 @@ export default function PricingPage() {
             {["Discover", "Trending", "Developers"].map((item) => (
               <Link
                 key={item}
-                href="/discover"
+                href={item === 'Trending' ? '/trending' : item === 'Developers' ? '/developers' : '/discover'}
                 className="text-[14px] font-medium text-[#555] hover:text-[#111] transition-colors"
               >
                 {item}

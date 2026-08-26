@@ -260,9 +260,9 @@ export default function LoginPage() {
 
             {/* Forgot password */}
             <div className="mt-3 text-right">
-              <a href="#" className="text-[13px] font-medium text-[#315BFF] transition-colors duration-150 hover:underline">
+              <Link href="/forgot-password" className="text-[13px] font-medium text-[#315BFF] transition-colors duration-150 hover:underline">
                 Forgot password?
-              </a>
+              </Link>
             </div>
 
             {/* Submit */}

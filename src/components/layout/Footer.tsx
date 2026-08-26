@@ -6,10 +6,9 @@ import Button from '@/components/ui/Button';
 const footerColumns = {
   Product: [
     { label: 'Discover', href: '/discover' },
-    { label: 'Trending', href: '/discover?sort=trending' },
+    { label: 'Trending', href: '/trending' },
     { label: 'Developers', href: '/developers' },
     { label: 'Categories', href: '/categories' },
-    { label: 'Collections', href: '/collections' },
     { label: 'Ship a product', href: '/launch' },
   ],
   Company: [

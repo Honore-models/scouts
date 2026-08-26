@@ -5,14 +5,14 @@ import { type ReactNode } from 'react';
 
 const navLinks = [
   { label: 'Discover', href: '/discover' },
-  { label: 'Trending', href: '/discover?sort=trending' },
+  { label: 'Trending', href: '/trending' },
   { label: 'Developers', href: '/developers' },
   { label: 'Categories', href: '/categories', dropdown: true },
   { label: 'About', href: '/about' },
 ];
 
 const footerCols = {
-  Product: ['Discover', 'Trending', 'Developers', 'Categories', 'Collections', 'Ship a product'],
+  Product: ['Discover', 'Trending', 'Developers', 'Categories', 'Ship a product'],
   Company: ['About Us', 'Blog', 'Careers', 'Press', 'Contact', 'Brand assets'],
   Resources: ['Help Center', 'Guidelines', 'For Developers', 'API', 'Changelog', 'Status'],
   Legal: ['Terms of Service', 'Privacy Policy', 'Cookie Policy', 'Community Rules'],

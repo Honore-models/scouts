@@ -9,7 +9,6 @@ import {
   Compass,
   TrendingUp,
   Bookmark,
-  FolderOpen,
   Plus,
   Search,
   Bell,
@@ -41,11 +40,10 @@ const sidebarItems = [
   { icon: Compass, label: "Discover", href: "/discover" },
   { icon: TrendingUp, label: "Trending", href: "/trending" },
   { icon: Bookmark, label: "Bookmarks", href: "/bookmarks" },
-  { icon: FolderOpen, label: "Collections", href: "/collections" },
 ];
 
 const yourSpace = [
-  { icon: Compass, label: "My Projects", href: "/projects" },
+  { icon: Compass, label: "My Projects", href: "/dashboard/projects" },
   { icon: FileText, label: "Drafts", href: "/drafts" },
   { icon: MessageSquare, label: "Feedback", href: "/feedback" },
 ];

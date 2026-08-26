@@ -10,7 +10,7 @@ import { useState } from 'react';
 
 const navLinks = [
   { label: 'Discover', href: '/discover', active: true },
-  { label: 'Trending', href: '/discover?sort=trending' },
+  { label: 'Trending', href: '/trending' },
   { label: 'Developers', href: '/developers' },
   { label: 'Categories', href: '/categories', dropdown: true },
   { label: 'Pricing', href: '/pricing' },
@@ -519,7 +519,7 @@ export default function LandingPage() {
 
             {/* Columns */}
             {[
-              { title: 'PRODUCT', links: ['Discover', 'Trending', 'Developers', 'Categories', 'Collections', 'Ship a product'] },
+              { title: 'PRODUCT', links: ['Discover', 'Trending', 'Developers', 'Categories', 'Ship a product'] },
               { title: 'COMPANY', links: ['About Us', 'Blog', 'Careers', 'Press', 'Contact', 'Brand assets'] },
               { title: 'RESOURCES', links: ['Help Center', 'Guidelines', 'For Developers', 'API', 'Changelog', 'Status'] },
               { title: 'LEGAL', links: ['Terms of Service', 'Privacy Policy', 'Cookie Policy', 'Community Rules'] },

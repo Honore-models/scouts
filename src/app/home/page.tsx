@@ -9,7 +9,6 @@ import {
   Compass,
   TrendingUp,
   Bookmark,
-  FolderOpen,
   FileText,
   MessageSquare,
   Settings,
@@ -31,9 +30,8 @@ import {
 const sidebarNav = [
   { label: 'Home', icon: Home, href: '/home', active: true },
   { label: 'Discover', icon: Compass, href: '/discover' },
-  { label: 'Trending', icon: TrendingUp, href: '/discover?sort=trending' },
-  { label: 'Bookmarks', icon: Bookmark, href: '/bookmarks' },
-  { label: 'Collections', icon: FolderOpen, href: '/collections' },
+  { label: 'Trending', icon: TrendingUp, href: '/trending' },
+  { label: 'Bookmarks', icon: Bookmark, href: '/saved' },
 ];
 
 const sidebarSpace = [
