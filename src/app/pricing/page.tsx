@@ -68,7 +68,7 @@ export default function PricingPage() {
       <nav className="flex items-center justify-between px-6 lg:px-10 py-4 bg-white/40 backdrop-blur-xl border-b border-white/30">
         <div className="flex items-center gap-10">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo.svg" alt="Scoutts" width={32} height={32} />
+            <Image src="/logo.svg" alt="Scoutts" width={24} height={30} className="h-auto" />
             <span className="text-[18px] font-bold text-[#111]">Scoutts</span>
           </Link>
           <div className="hidden lg:flex items-center gap-6">

@@ -90,7 +90,7 @@ export default function HomePage() {
           <div className="sticky top-0 flex h-screen flex-col px-4 py-6">
             {/* Logo */}
             <Link href="/" className="mb-8 flex items-center gap-2.5 text-[#111] no-underline">
-              <Image src="/logo.svg" alt="ScouTTs" width={32} height={32} unoptimized />
+              <Image src="/logo.svg" alt="ScouTTs" width={24} height={30} className="h-auto" unoptimized />
               <span className="text-[17px] font-extrabold tracking-tight">Scoutts</span>
             </Link>
 

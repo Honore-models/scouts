@@ -72,7 +72,7 @@ export default function OnboardingPage() {
       {/* ── Header ── */}
       <header className="relative z-10 flex items-center justify-between px-8 py-6">
         <Link href="/" className="flex items-center gap-2.5 text-[#111] no-underline">
-          <Image src="/logo.svg" alt="ScouTTs" width={36} height={36} unoptimized />
+          <Image src="/logo.svg" alt="ScouTTs" width={28} height={35} className="h-auto" unoptimized />
           <span className="text-[18px] font-extrabold tracking-tight">Scoutts</span>
         </Link>
         <Link

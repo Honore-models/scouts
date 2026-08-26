@@ -54,7 +54,7 @@ export default function LoginPage() {
         <div className="hidden max-w-[480px] lg:block">
           {/* Logo */}
           <Link href="/" className="mb-8 flex items-center gap-2.5 text-[#111] no-underline">
-            <Image src="/logo.svg" alt="ScouTTs" width={40} height={40} unoptimized />
+            <Image src="/logo.svg" alt="ScouTTs" width={32} height={40} className="h-auto" unoptimized />
             <span className="text-[20px] font-extrabold tracking-tight">Scoutts</span>
           </Link>
 
@@ -163,7 +163,7 @@ export default function LoginPage() {
         <div className="w-full max-w-[420px]">
           {/* Mobile logo */}
           <Link href="/" className="mb-6 flex items-center gap-2.5 text-[#111] no-underline lg:hidden">
-            <Image src="/logo.svg" alt="ScouTTs" width={36} height={36} unoptimized />
+            <Image src="/logo.svg" alt="ScouTTs" width={28} height={35} className="h-auto" unoptimized />
             <span className="text-[18px] font-extrabold tracking-tight">Scoutts</span>
           </Link>
 

@@ -176,7 +176,7 @@ export default function DashboardPage() {
       {/* Sidebar */}
       <aside className="w-[220px] min-h-screen bg-white/60 backdrop-blur-xl border-r border-white/40 p-5 flex flex-col fixed left-0 top-0 bottom-0 z-10">
         <div className="flex items-center gap-2 mb-10">
-          <Image src="/logo.svg" alt="Scoutts" width={32} height={32} />
+          <Image src="/logo.svg" alt="Scoutts" width={24} height={30} className="h-auto" />
           <span className="text-[18px] font-bold text-[#111]">Scoutts</span>
         </div>
 
