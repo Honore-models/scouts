@@ -79,6 +79,7 @@ export default function FeedbackPage() {
   const filtered = filterType === 'all' ? feedbackItems : feedbackItems.filter(f => f.type === filterType);
 
   return (
+    <AuthGuard>
     <div className="relative min-h-screen overflow-hidden text-[#111]">
       <div
         className="pointer-events-none fixed inset-0 -z-10"
@@ -97,6 +98,7 @@ export default function FeedbackPage() {
               {sidebarNav.map((item) => {
                 const Icon = item.icon;
                 return (
+    <AuthGuard>
                   <Link key={item.label} href={item.href} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14px] font-medium transition-colors duration-150 ${item.label === 'Discover' ? 'bg-[#315BFF]/10 text-[#315BFF]' : 'text-[#555] hover:bg-black/[0.03] hover:text-[#111]'}`}>
                     <Icon className="h-[18px] w-[18px]" />
                     {item.label}
@@ -110,6 +112,7 @@ export default function FeedbackPage() {
                 {sidebarSpace.map((item) => {
                   const Icon = item.icon;
                   return (
+    <AuthGuard>
                     <Link key={item.label} href={item.href} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14px] font-medium transition-colors duration-150 ${item.active ? 'bg-[#315BFF]/10 text-[#315BFF]' : 'text-[#555] hover:bg-black/[0.03] hover:text-[#111]'}`}>
                       <Icon className="h-[18px] w-[18px]" />
                       {item.label}
@@ -191,6 +194,7 @@ export default function FeedbackPage() {
               {filtered.map((item) => {
                 const style = typeStyles[item.type];
                 return (
+    <AuthGuard>
                   <div key={item.id} className="rounded-xl border border-black/[0.04] bg-white/60 p-5 backdrop-blur-sm transition-all duration-200 hover:bg-white/80">
                     {/* Header */}
                     <div className="flex items-start gap-3">
@@ -252,5 +256,6 @@ export default function FeedbackPage() {
         </div>
       </div>
     </div>
+    </AuthGuard>
   );
 }

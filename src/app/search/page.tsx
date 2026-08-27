@@ -166,6 +166,7 @@ export default function SearchPage() {
   });
 
   return (
+    <AuthGuard>
     <div className="relative min-h-screen overflow-hidden text-[#111]">
       <div
         className="pointer-events-none fixed inset-0 -z-10"
@@ -199,6 +200,7 @@ export default function SearchPage() {
               {sidebarNav.map((item) => {
                 const Icon = item.icon;
                 return (
+    <AuthGuard>
                   <Link
                     key={item.label}
                     href={item.href}
@@ -218,6 +220,7 @@ export default function SearchPage() {
                 {sidebarSpace.map((item) => {
                   const Icon = item.icon;
                   return (
+    <AuthGuard>
                     <Link
                       key={item.label}
                       href={item.href}
@@ -375,5 +378,6 @@ export default function SearchPage() {
         </div>
       </div>
     </div>
+    </AuthGuard>
   );
 }

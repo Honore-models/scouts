@@ -83,6 +83,7 @@ export default function CategoriesPage() {
     : [];
 
   return (
+    <AuthGuard>
     <div className="relative min-h-screen overflow-hidden text-[#111]">
       <div
         className="pointer-events-none fixed inset-0 -z-10"
@@ -101,6 +102,7 @@ export default function CategoriesPage() {
               {sidebarNav.map((item) => {
                 const Icon = item.icon;
                 return (
+    <AuthGuard>
                   <Link key={item.label} href={item.href} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14px] font-medium transition-colors duration-150 ${item.label === 'Discover' ? 'bg-[#315BFF]/10 text-[#315BFF]' : 'text-[#555] hover:bg-black/[0.03] hover:text-[#111]'}`}>
                     <Icon className="h-[18px] w-[18px]" />
                     {item.label}
@@ -114,6 +116,7 @@ export default function CategoriesPage() {
                 {sidebarSpace.map((item) => {
                   const Icon = item.icon;
                   return (
+    <AuthGuard>
                     <Link key={item.label} href={item.href} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14px] font-medium text-[#555] transition-colors duration-150 hover:bg-black/[0.03] hover:text-[#111]">
                       <Icon className="h-[18px] w-[18px]" />
                       {item.label}
@@ -156,6 +159,7 @@ export default function CategoriesPage() {
               {categoryList.map((cat) => {
                 const Icon = cat.icon;
                 return (
+    <AuthGuard>
                   <button key={cat.id} type="button" onClick={() => setActiveCategory(activeCategory === cat.id ? null : cat.id)} className={`flex flex-col items-center gap-2 rounded-xl border p-5 transition-all duration-200 ${activeCategory === cat.id ? 'border-[#315BFF] bg-[#315BFF]/5 shadow-[0_2px_12px_rgba(49,91,255,0.12)]' : 'border-black/[0.04] bg-white/60 hover:bg-white hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)]'}`}>
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ backgroundColor: `${cat.color}15` }}>
                       <Icon className="h-5 w-5" style={{ color: cat.color }} />
@@ -196,5 +200,6 @@ export default function CategoriesPage() {
         </div>
       </div>
     </div>
+    </AuthGuard>
   );
 }

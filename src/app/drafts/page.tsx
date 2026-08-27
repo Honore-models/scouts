@@ -96,6 +96,7 @@ export default function DraftsPage() {
   };
 
   return (
+    <AuthGuard>
     <div className="relative min-h-screen overflow-hidden text-[#111]">
       <div
         className="pointer-events-none fixed inset-0 -z-10"
@@ -129,6 +130,7 @@ export default function DraftsPage() {
               {sidebarNav.map((item) => {
                 const Icon = item.icon;
                 return (
+    <AuthGuard>
                   <Link
                     key={item.label}
                     href={item.href}
@@ -148,6 +150,7 @@ export default function DraftsPage() {
                 {sidebarSpace.map((item) => {
                   const Icon = item.icon;
                   return (
+    <AuthGuard>
                     <Link
                       key={item.label}
                       href={item.href}
@@ -309,5 +312,6 @@ export default function DraftsPage() {
         </div>
       </div>
     </div>
+    </AuthGuard>
   );
 }

@@ -59,6 +59,7 @@ export default function DiscoverPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
+    <AuthGuard>
     <div className="relative min-h-screen overflow-hidden text-[#111]">
       {/* ── Background ── */}
       <div
@@ -86,6 +87,7 @@ export default function DiscoverPage() {
               {sidebarNav.map((item) => {
                 const Icon = item.icon;
                 return (
+    <AuthGuard>
                   <Link
                     key={item.label}
                     href={item.href}
@@ -111,6 +113,7 @@ export default function DiscoverPage() {
                 {sidebarSpace.map((item) => {
                   const Icon = item.icon;
                   return (
+    <AuthGuard>
                     <Link
                       key={item.label}
                       href={item.href}
@@ -278,5 +281,6 @@ export default function DiscoverPage() {
         </div>
       </div>
     </div>
+    </AuthGuard>
   );
 }

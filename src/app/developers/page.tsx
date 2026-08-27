@@ -59,6 +59,7 @@ export default function DevelopersPage() {
   );
 
   return (
+    <AuthGuard>
     <div className="relative min-h-screen overflow-hidden text-[#111]">
       <div
         className="pointer-events-none fixed inset-0 -z-10"
@@ -77,6 +78,7 @@ export default function DevelopersPage() {
               {sidebarNav.map((item) => {
                 const Icon = item.icon;
                 return (
+    <AuthGuard>
                   <Link key={item.label} href={item.href} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14px] font-medium transition-colors duration-150 ${item.label === 'Discover' ? 'bg-[#315BFF]/10 text-[#315BFF]' : 'text-[#555] hover:bg-black/[0.03] hover:text-[#111]'}`}>
                     <Icon className="h-[18px] w-[18px]" />
                     {item.label}
@@ -90,6 +92,7 @@ export default function DevelopersPage() {
                 {sidebarSpace.map((item) => {
                   const Icon = item.icon;
                   return (
+    <AuthGuard>
                     <Link key={item.label} href={item.href} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14px] font-medium text-[#555] transition-colors duration-150 hover:bg-black/[0.03] hover:text-[#111]">
                       <Icon className="h-[18px] w-[18px]" />
                       {item.label}
@@ -199,5 +202,6 @@ export default function DevelopersPage() {
         </div>
       </div>
     </div>
+    </AuthGuard>
   );
 }
