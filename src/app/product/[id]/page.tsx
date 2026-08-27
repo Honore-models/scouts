@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import ProfileDropdown from '@/components/layout/ProfileDropdown';
+import AuthGuard from "@/components/auth-guard";
 import {
   getProductById,
   getDeveloperById,
@@ -71,6 +72,7 @@ export default function ProductDetailPage() {
   // Not found state
   if (!product) {
     return (
+    <AuthGuard>
       <div className="relative min-h-screen overflow-hidden text-[#111]">
         <div
           className="pointer-events-none fixed inset-0 -z-10"
@@ -98,6 +100,7 @@ export default function ProductDetailPage() {
   }
 
   return (
+    <AuthGuard>
     <div className="relative min-h-screen overflow-hidden text-[#111]">
       {/* ── Background ── */}
       <div
@@ -123,6 +126,7 @@ export default function ProductDetailPage() {
               {sidebarNav.map((item) => {
                 const Icon = item.icon;
                 return (
+    <AuthGuard>
                   <Link
                     key={item.label}
                     href={item.href}
@@ -147,6 +151,7 @@ export default function ProductDetailPage() {
                 {sidebarSpace.map((item) => {
                   const Icon = item.icon;
                   return (
+    <AuthGuard>
                     <Link
                       key={item.label}
                       href={item.href}
@@ -581,5 +586,6 @@ export default function ProductDetailPage() {
         </aside>
       </div>
     </div>
+    </AuthGuard>
   );
 }

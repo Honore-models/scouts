@@ -18,6 +18,8 @@ const navLinks = [
 ];
 
 import { products as allProducts } from "@/lib/mock-data";
+import { useAuth } from "@/lib/auth-context";
+import ProfileDropdown from "@/components/layout/ProfileDropdown";
 
 const products: ((typeof allProducts)[number] & { large?: boolean })[] = [
   { ...allProducts[0], image: "/landing/freelance.png", large: true },
@@ -96,6 +98,7 @@ function StarIcon({ className }: { className?: string }) {
    ═══════════════════════════════════════════════════════════════ */
 
 export default function LandingPage() {
+  const { user } = useAuth();
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [emailLoading, setEmailLoading] = useState(false);
@@ -181,18 +184,24 @@ export default function LandingPage() {
               className="bg-transparent text-[13px] text-[#333] placeholder-[#aaa] outline-none w-48"
             />
           </div>
-          <Link
-            href="/login"
-            className="px-5 py-2 text-[13px] font-medium text-[#333] border border-[#ddd] rounded-full hover:bg-white/60 transition-colors"
-          >
-            Login
-          </Link>
-          <Link
-            href="/signup"
-            className="px-5 py-2 text-[13px] font-semibold text-white bg-[#315BFF] rounded-full hover:bg-[#2a4de6] transition-colors"
-          >
-            Sign up
-          </Link>
+          {user ? (
+            <ProfileDropdown />
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="px-5 py-2 text-[13px] font-medium text-[#333] border border-[#ddd] rounded-full hover:bg-white/60 transition-colors"
+              >
+                Login
+              </Link>
+              <Link
+                href="/signup"
+                className="px-5 py-2 text-[13px] font-semibold text-white bg-[#315BFF] rounded-full hover:bg-[#2a4de6] transition-colors"
+              >
+                Sign up
+              </Link>
+            </>
+          )}
         </div>
       </nav>
 

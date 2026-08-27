@@ -50,7 +50,7 @@ const trendingProducts = [
     id: "1",
     name: "FlowBoard",
     tagline: "AI powered whiteboard for collaborative teams",
-    maker: "David Kimdashboard1
+    maker: "David Kim",
     image: "/landing/dashboard-tilt.png",
     upvotes: 1240,
     comments: 89,
