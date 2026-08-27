@@ -2,19 +2,24 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useAuth } from '@/lib/auth-context';
 import { Mail, Lock, Eye, EyeOff, User, MessageSquare, TrendingUp, Heart } from 'lucide-react';
 
 /* ─── Page ─────────────────────────────────────────────────── */
 
 export default function LoginPage() {
+  const router = useRouter();
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
   const [loading, setLoading] = useState(false);
+  const [generalError, setGeneralError] = useState('');
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const newErrors: typeof errors = {};
     if (!email) newErrors.email = 'Please enter your email';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = 'Please enter a valid email';
@@ -24,9 +29,16 @@ export default function LoginPage() {
     if (Object.keys(newErrors).length > 0) return;
 
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1200);
+    setGeneralError('');
+
+    const result = await login(email, password);
+    setLoading(false);
+
+    if (result.success) {
+      router.push('/home');
+    } else {
+      setGeneralError(result.error || 'Login failed');
+    }
   };
 
   return (
@@ -264,6 +276,10 @@ export default function LoginPage() {
                 Forgot password?
               </Link>
             </div>
+
+            {generalError && (
+              <p className="mt-3 text-[12px] text-center text-red-500 bg-red-50 rounded-lg px-3 py-2">{generalError}</p>
+            )}
 
             {/* Submit */}
             <button

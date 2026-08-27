@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ProfileDropdown from "@/components/layout/ProfileDropdown";
+import AuthGuard from "@/components/auth-guard";
 import {
   Home,
   Compass,
@@ -83,7 +84,7 @@ const collections: Collection[] = [
     name: "SaaS Picks",
     description: "Top SaaS products to watch",
     projectCount: 15,
-    isPublic: true,
+    isPublic: true,dashboard1
     image: "/landing/dashboard-tilt.png",
     projects: ["FlowBoard", "DataPulse", "ShipFast"],
   },

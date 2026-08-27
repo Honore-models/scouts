@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import ProfileDropdown from '@/components/layout/ProfileDropdown';
+import AuthGuard from '@/components/auth-guard';
 import {
   Home,
   Compass,

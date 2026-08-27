@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ProfileDropdown from "@/components/layout/ProfileDropdown";
+import AuthGuard from "@/components/auth-guard";
 import {
   Home,
   Compass,
@@ -49,7 +50,7 @@ const trendingProducts = [
     id: "1",
     name: "FlowBoard",
     tagline: "AI powered whiteboard for collaborative teams",
-    maker: "David Kim",
+    maker: "David Kimdashboard1
     image: "/landing/dashboard-tilt.png",
     upvotes: 1240,
     comments: 89,

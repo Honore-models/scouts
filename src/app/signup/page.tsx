@@ -2,20 +2,25 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useAuth } from '@/lib/auth-context';
 import { User, Mail, Lock, Heart, MessageSquare, TrendingUp } from 'lucide-react';
 
 /* ─── Page ─────────────────────────────────────────────────── */
 
 export default function SignupPage() {
+  const router = useRouter();
+  const { signup } = useAuth();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ name?: string; email?: string; password?: string }>({});
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [generalError, setGeneralError] = useState('');
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const newErrors: typeof errors = {};
     if (!fullName.trim()) newErrors.name = 'Please enter your full name';
     if (!email) newErrors.email = 'Please enter your email';
@@ -27,10 +32,16 @@ export default function SignupPage() {
     if (Object.keys(newErrors).length > 0) return;
 
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 1200);
+    setGeneralError('');
+
+    const result = await signup(fullName, email, password);
+    setLoading(false);
+
+    if (result.success) {
+      router.push('/onboarding');
+    } else {
+      setGeneralError(result.error || 'Signup failed');
+    }
   };
 
   return (
@@ -272,6 +283,10 @@ export default function SignupPage() {
               </div>
             </div>
 
+            {generalError && (
+              <p className="mt-3 text-[12px] text-center text-red-500 bg-red-50 rounded-lg px-3 py-2">{generalError}</p>
+            )}
+
             {/* Submit */}
             <button
               type="button"
@@ -281,10 +296,6 @@ export default function SignupPage() {
             >
               {loading ? 'Creating account...' : 'Sign up'}
             </button>
-
-            {submitted && (
-              <p className="mt-3 text-center text-[12px] text-green-600">Account created! Check your email to verify.</p>
-            )}
 
             {/* Login link */}
             <p className="mt-5 text-center text-[13px] text-[#666]">

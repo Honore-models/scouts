@@ -12,14 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-
-interface Profile {
-  name: string;
-  email: string;
-  avatar: string;
-  username?: string;
-  subscription?: string;
-}
+import { useAuth } from "@/lib/auth-context";
 
 interface MenuItem {
   label: string;
@@ -30,7 +23,13 @@ interface MenuItem {
 }
 
 interface ProfileDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
-  data?: Profile;
+  data?: {
+    name: string;
+    email: string;
+    avatar: string;
+    username?: string;
+    subscription?: string;
+  };
 }
 
 export default function ProfileDropdown({
@@ -38,15 +37,22 @@ export default function ProfileDropdown({
   className,
   ...props
 }: ProfileDropdownProps) {
+  const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const profile: Profile = data || {
-    name: "Ivan Hirwa",
-    email: "@ivanhirwa",
-    avatar: "/avatar.png",
-    username: "@ivanhirwa",
+  const profile = data || (user ? {
+    name: user.name,
+    email: user.username || user.email,
+    avatar: user.avatar,
+    username: user.username,
     subscription: "PRO",
-  };
+  } : {
+    name: "Guest",
+    email: "",
+    avatar: "/avatar.png",
+    username: "",
+    subscription: "FREE",
+  });
 
   const menuItems: MenuItem[] = [
     {
@@ -183,6 +189,7 @@ export default function ProfileDropdown({
               <button
                 className="group flex w-full cursor-pointer items-center gap-3 rounded-xl border border-transparent bg-red-50 p-3 transition-all duration-150 hover:border-red-200 hover:bg-red-100"
                 type="button"
+                onClick={() => { logout(); window.location.href = '/'; }}
               >
                 <LogOut className="h-4 w-4 text-red-400 group-hover:text-red-500" />
                 <span className="font-medium text-red-400 text-[13px] group-hover:text-red-500">

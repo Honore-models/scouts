@@ -55,7 +55,7 @@ const projects = [
     name: "FlowBoard",
     tagline: "AI powered whiteboard for collaborative teams",
     status: "live",
-    image: "/landing/dashboard-tilt.png",
+    image: "/landing/dashboard1.png",
     views: "8,432",
     visitors: "2,945",
     likes: 842,

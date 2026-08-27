@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ProfileDropdown from "@/components/layout/ProfileDropdown";
+import AuthGuard from "@/components/auth-guard";
 import {
   Home,
   Compass,
@@ -79,7 +80,7 @@ const drafts: Draft[] = [
     name: "TaskBoard",
     description: "Kanban style project management for small teams",
     lastEdited: "1 week ago",
-    completionPercent: 80,
+    completionPercentdashboard1
     image: "/landing/dashboard-tilt.png",
     category: "Productivity",
   },
