@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import ProfileDropdown from '@/components/layout/ProfileDropdown';
+import { products } from '@/lib/mock-data';
 import {
   Home,
   Compass,
@@ -32,7 +33,7 @@ const sidebarNav = [
 ];
 
 const sidebarSpace = [
-  { label: 'My Projects', icon: Compass, href: '/dashboard' },
+  { label: 'My Projects', icon: Compass, href: '/dashboard/projects' },
   { label: 'Drafts', icon: FileText, href: '/drafts' },
   { label: 'Feedback', icon: MessageSquare, href: '/feedback' },
 ];
@@ -48,17 +49,7 @@ const categories = [
   { id: 'design', label: 'Design' },
 ];
 
-const products = [
-  { id: '1', name: 'DeliciousFood', tagline: 'Art Selling website', maker: 'Mandrake', image: '/landing/delicious.png', tags: ['Design', 'Marketplace', 'Web'] },
-  { id: '2', name: 'Kartz', tagline: 'Art Selling website', maker: 'Mandrake', image: '/landing/kartz.png', tags: ['Design', 'Marketplace', 'Web'] },
-  { id: '3', name: 'CodeSnap', tagline: 'Art Selling website', maker: 'Mandrake', image: '/landing/kartz.png', tags: ['Design', 'Marketplace', 'Web'] },
-  { id: '4', name: 'DeliciousFood', tagline: 'Art Selling website', maker: 'Mandrake', image: '/landing/delicious.png', tags: ['Design', 'Marketplace', 'Web'] },
-  { id: '5', name: 'Kartz', tagline: 'Art Selling website', maker: 'Mandrake', image: '/landing/kartz.png', tags: ['Design', 'Marketplace', 'Web'] },
-  { id: '6', name: 'CodeSnap', tagline: 'Art Selling website', maker: 'Mandrake', image: '/landing/kartz.png', tags: ['Design', 'Marketplace', 'Web'] },
-  { id: '7', name: 'DeliciousFood', tagline: 'Art Selling website', maker: 'Mandrake', image: '/landing/delicious.png', tags: ['Design', 'Marketplace', 'Web'] },
-  { id: '8', name: 'Kartz', tagline: 'Art Selling website', maker: 'Mandrake', image: '/landing/kartz.png', tags: ['Design', 'Marketplace', 'Web'] },
-  { id: '9', name: 'CodeSnap', tagline: 'Art Selling website', maker: 'Mandrake', image: '/landing/kartz.png', tags: ['Design', 'Marketplace', 'Web'] },
-];
+
 
 /* ─── Page ─────────────────────────────────────────────────── */
 
@@ -244,15 +235,15 @@ export default function DiscoverPage() {
                     <div className="mt-3 flex items-center gap-3 border-t border-black/[0.04] pt-3 text-[12px] text-[#666]">
                       <span className="flex items-center gap-1">
                         <ArrowUp className="h-3.5 w-3.5 text-[#34C759]" />
-                        482
+                        {product.upvotes}
                       </span>
                       <span className="flex items-center gap-1">
                         <MessageSquare className="h-3.5 w-3.5" />
-                        68
+                        {product.comments}
                       </span>
                       <span className="flex items-center gap-1">
                         <Star className="h-3.5 w-3.5 fill-[#111] text-[#111]" />
-                        4.8
+                        {product.rating}
                       </span>
                     </div>
                   </div>

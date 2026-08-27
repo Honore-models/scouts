@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import ProfileDropdown from '@/components/layout/ProfileDropdown';
+import { products } from '@/lib/mock-data';
 import {
   Home,
   Compass,
@@ -35,7 +36,7 @@ const sidebarNav = [
 ];
 
 const sidebarSpace = [
-  { label: 'My Projects', icon: Compass, href: '/dashboard' },
+  { label: 'My Projects', icon: Compass, href: '/dashboard/projects' },
   { label: 'Drafts', icon: FileText, href: '/drafts' },
   { label: 'Feedback', icon: MessageSquare, href: '/feedback' },
 ];
@@ -51,18 +52,8 @@ const categories = [
   { id: 'design', label: 'Design' },
 ];
 
-const recommendedProducts = [
-  { id: '1', name: 'CodeSnap', tagline: 'Beautiful code screenshots in one click', maker: 'Cenat', image: '/landing/code.png' },
-  { id: '2', name: 'CodeSnap', tagline: 'Beautiful code screenshots in one click', maker: 'Cenat', image: '/landing/delicious.png' },
-  { id: '3', name: 'CodeSnap', tagline: 'Beautiful code screenshots in one click', maker: 'Cenat', image: '/landing/hoobank.png' },
-  { id: '4', name: 'CodeSnap', tagline: 'Beautiful code screenshots in one click', maker: 'Cenat', image: '/landing/code.png' },
-];
-
-const trendingProducts = [
-  { id: '5', name: 'DeliciousFood', tagline: 'All in one platform that helps restaurants grow from dashboard to doorstep', maker: 'Ivan', image: '/landing/delicious.png' },
-  { id: '6', name: 'Kartz', tagline: 'Art Selling website', maker: 'Cenat', image: '/landing/kartz.png' },
-  { id: '7', name: 'CodeSnap', tagline: 'Beautiful code screenshots in one click', maker: 'Cenat', image: '/landing/code.png' },
-];
+const recommendedProducts = products.slice(0, 4);
+const trendingProducts = products.slice(1, 4);
 
 /* ─── Page ─────────────────────────────────────────────────── */
 
@@ -359,15 +350,15 @@ export default function HomePage() {
                       <div className="mt-2 flex items-center gap-3 text-[11px] text-[#666]">
                         <span className="flex items-center gap-1">
                           <ArrowUp className="h-3 w-3 text-[#34C759]" />
-                          482
+                          {product.upvotes}
                         </span>
                         <span className="flex items-center gap-1">
                           <MessageSquare className="h-3 w-3" />
-                          68
+                          {product.comments}
                         </span>
                         <span className="flex items-center gap-1">
                           <Star className="h-3 w-3 fill-[#111] text-[#111]" />
-                          4.8
+                          {product.rating}
                         </span>
                       </div>
                     </div>
@@ -407,15 +398,15 @@ export default function HomePage() {
                       <div className="mt-2 flex items-center gap-3 text-[11px] text-[#666]">
                         <span className="flex items-center gap-1">
                           <ArrowUp className="h-3 w-3 text-[#34C759]" />
-                          482
+                          {product.upvotes}
                         </span>
                         <span className="flex items-center gap-1">
                           <MessageSquare className="h-3 w-3" />
-                          68
+                          {product.comments}
                         </span>
                         <span className="flex items-center gap-1">
                           <Star className="h-3 w-3 fill-[#111] text-[#111]" />
-                          4.8
+                          {product.rating}
                         </span>
                       </div>
                     </div>

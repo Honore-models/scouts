@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import ProfileDropdown from '@/components/layout/ProfileDropdown';
+import { products } from '@/lib/mock-data';
 import {
   Home,
   Compass,
@@ -38,7 +39,7 @@ const sidebarNav = [
 ];
 
 const sidebarSpace = [
-  { label: 'My Projects', icon: Compass, href: '/dashboard' },
+  { label: 'My Projects', icon: Compass, href: '/dashboard/projects' },
   { label: 'Drafts', icon: FileText, href: '/drafts' },
   { label: 'Feedback', icon: MessageSquare, href: '/feedback' },
 ];
@@ -56,19 +57,29 @@ const categoryList = [
   { id: 'utilities', label: 'Utilities', icon: Wrench, count: 76, color: '#84CC16' },
 ];
 
-const featuredByCategory = [
-  { id: '1', name: 'FlowBoard', tagline: 'AI powered whiteboard for teams', maker: 'David Kim', image: '/landing/dashboard-tilt.png', category: 'SaaS', upvotes: 482, comments: 68, rating: 4.8 },
-  { id: '2', name: 'DeliciousFood', tagline: 'Restaurant management platform', maker: 'Ivan', image: '/landing/delicious.png', category: 'Web Apps', upvotes: 341, comments: 45, rating: 4.7 },
-  { id: '3', name: 'CodeSnap', tagline: 'Beautiful code screenshots', maker: 'Cenat', image: '/landing/code.png', category: 'Developer Tools', upvotes: 298, comments: 32, rating: 4.6 },
-  { id: '4', name: 'Kartz', tagline: 'Art marketplace for artists', maker: 'Mandrake', image: '/landing/kartz.png', category: 'E-Commerce', upvotes: 267, comments: 28, rating: 4.5 },
-  { id: '5', name: 'ShipFast', tagline: 'Ship MVPs faster', maker: 'Liam Chen', image: '/landing/code.png', category: 'Developer Tools', upvotes: 234, comments: 22, rating: 4.4 },
-  { id: '6', name: 'MindMap AI', tagline: 'AI brainstorming tool', maker: 'Alex Park', image: '/landing/delicious.png', category: 'AI & Machine Learning', upvotes: 198, comments: 18, rating: 4.3 },
-];
+
 
 /* ─── Page ─────────────────────────────────────────────────── */
 
 export default function CategoriesPage() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+  const categoryMap: Record<string, string> = {
+    saas: 'SaaS',
+    ai: 'AI',
+    devtools: 'Developer tools',
+    web: 'Web Apps',
+    mobile: 'Mobile',
+    design: 'Design',
+    database: 'Database & Storage',
+    ecommerce: 'Marketplace',
+    productivity: 'Productivity',
+    utilities: 'Developer tools',
+  };
+
+  const filteredProducts = activeCategory
+    ? products.filter(p => p.category === categoryMap[activeCategory])
+    : [];
 
   return (
     <div className="relative min-h-screen overflow-hidden text-[#111]">
@@ -160,7 +171,7 @@ export default function CategoriesPage() {
               <section className="mt-8">
                 <h2 className="text-[20px] font-bold text-[#111]">Featured in {categoryList.find(c => c.id === activeCategory)?.label}</h2>
                 <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                  {featuredByCategory.map((product) => (
+                  {filteredProducts.map((product) => (
                     <Link key={product.id} href={`/product/${product.id}`} className="group overflow-hidden rounded-xl bg-white shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.1)]">
                       <div className="relative h-[160px] w-full overflow-hidden bg-slate-900">
                         <Image src={product.image} alt={product.name} fill className="object-cover" sizes="33vw" />

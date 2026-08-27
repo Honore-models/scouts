@@ -34,7 +34,7 @@ const sidebarNav = [
 ];
 
 const sidebarSpace = [
-  { label: 'My Projects', icon: Compass, href: '/dashboard' },
+  { label: 'My Projects', icon: Compass, href: '/dashboard/projects' },
   { label: 'Drafts', icon: FileText, href: '/drafts' },
   { label: 'Feedback', icon: MessageSquare, href: '/feedback', active: true },
 ];

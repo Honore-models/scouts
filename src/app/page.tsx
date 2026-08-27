@@ -17,15 +17,17 @@ const navLinks = [
   { label: 'About', href: '/about' },
 ];
 
-const products = [
-  { id: '1', name: 'FreelanceFlow', tagline: 'Manage your freelance business like a pro.', maker: 'yochanan', image: '/landing/freelance.png', large: true },
-  { id: '2', name: 'DeliciousFood', tagline: 'All in one platform that helps restaurants grow from dashboard to doorstep', maker: 'yochanan', image: '/landing/delicious.png' },
-  { id: '3', name: 'Kartz', tagline: 'Art selling website', maker: 'Mandrake', image: '/landing/kartz.png' },
-  { id: '4', name: 'CodeSnap', tagline: 'Beautiful code screenshots in one go', maker: 'yochanan', image: '/landing/code.png' },
-  { id: '5', name: 'CodeSnap', tagline: 'Beautiful code screenshots in one go', maker: 'yochanan', image: '/landing/code.png' },
-  { id: '6', name: 'CodeSnap', tagline: 'Beautiful code screenshots in one go', maker: 'yochanan', image: '/landing/code.png' },
-  { id: '7', name: 'CodeSnap', tagline: 'Beautiful code screenshots in one go', maker: 'yochanan', image: '/landing/code.png' },
-  { id: '8', name: 'CodeSnap', tagline: 'Beautiful code screenshots in one go', maker: 'yochanan', image: '/landing/code.png' },
+import { products as allProducts } from '@/lib/mock-data';
+
+const products: (typeof allProducts[number] & { large?: boolean })[] = [
+  { ...allProducts[0], image: '/landing/freelance.png', large: true },
+  allProducts[1],
+  allProducts[3],
+  allProducts[2],
+  allProducts[4],
+  allProducts[5],
+  allProducts[6],
+  allProducts[7],
 ];
 
 const communityAvatars = [
@@ -365,15 +367,15 @@ export default function LandingPage() {
                   <div className="flex items-center gap-3 text-[12px] text-[#888]">
                     <span className="flex items-center gap-1">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
-                      482
+                      {product.upvotes}
                     </span>
                     <span className="flex items-center gap-1">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
-                      68
+                      {product.comments}
                     </span>
                     <span className="flex items-center gap-1">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="#F59E0B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                      4.8
+                      {product.rating}
                     </span>
                   </div>
                 </div>
