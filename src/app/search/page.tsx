@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ProfileDropdown from "@/components/layout/ProfileDropdown";
-import AuthGuard from "@/components/auth-guard";
 import {
   Home,
   Compass,
@@ -41,7 +40,7 @@ const allProducts = [
     id: "1",
     name: "FlowBoard",
     tagline: "AI powered whiteboard for collaborative teams",
-    maker: "David Kimdashboard1
+    maker: "David Kim",
     image: "/landing/dashboard-tilt.png",
     category: "SaaS",
     upvotes: 482,
@@ -166,7 +165,6 @@ export default function SearchPage() {
   });
 
   return (
-    <AuthGuard>
     <div className="relative min-h-screen overflow-hidden text-[#111]">
       <div
         className="pointer-events-none fixed inset-0 -z-10"
@@ -200,7 +198,6 @@ export default function SearchPage() {
               {sidebarNav.map((item) => {
                 const Icon = item.icon;
                 return (
-    <AuthGuard>
                   <Link
                     key={item.label}
                     href={item.href}
@@ -220,7 +217,6 @@ export default function SearchPage() {
                 {sidebarSpace.map((item) => {
                   const Icon = item.icon;
                   return (
-    <AuthGuard>
                     <Link
                       key={item.label}
                       href={item.href}
@@ -378,6 +374,5 @@ export default function SearchPage() {
         </div>
       </div>
     </div>
-    </AuthGuard>
   );
 }

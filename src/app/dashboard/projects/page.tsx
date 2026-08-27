@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ProfileDropdown from "@/components/layout/ProfileDropdown";
-import AuthGuard from "@/components/auth-guard";
 import {
   Home,
   Compass,
@@ -56,7 +55,7 @@ const projects = [
     name: "FlowBoard",
     tagline: "AI powered whiteboard for collaborative teams",
     status: "live",
-    image: "/landing/dashboard1.png",
+    image: "/landing/dashboard-tilt.png",
     views: "8,432",
     visitors: "2,945",
     likes: 842,
@@ -128,7 +127,6 @@ export default function ProjectsPage() {
       : projects.filter((p) => p.status === statusFilter);
 
   return (
-    <AuthGuard>
     <div className="min-h-screen bg-gradient-to-br from-[#f8f7ff] via-[#f3f1ff] to-[#e8e4ff] flex">
       {/* Sidebar */}
       <aside className="w-[220px] min-h-screen bg-white/60 backdrop-blur-xl border-r border-white/40 p-5 flex flex-col fixed left-0 top-0 bottom-0 z-10">
@@ -377,6 +375,5 @@ export default function ProjectsPage() {
         </main>
       </div>
     </div>
-    </AuthGuard>
   );
 }

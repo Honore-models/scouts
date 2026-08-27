@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ProfileDropdown from "@/components/layout/ProfileDropdown";
-import AuthGuard from "@/components/auth-guard";
 import {
   Home,
   Compass,
@@ -80,7 +79,7 @@ const drafts: Draft[] = [
     name: "TaskBoard",
     description: "Kanban style project management for small teams",
     lastEdited: "1 week ago",
-    completionPercentdashboard1
+    completionPercent: 80,
     image: "/landing/dashboard-tilt.png",
     category: "Productivity",
   },
@@ -96,7 +95,6 @@ export default function DraftsPage() {
   };
 
   return (
-    <AuthGuard>
     <div className="relative min-h-screen overflow-hidden text-[#111]">
       <div
         className="pointer-events-none fixed inset-0 -z-10"
@@ -130,7 +128,6 @@ export default function DraftsPage() {
               {sidebarNav.map((item) => {
                 const Icon = item.icon;
                 return (
-    <AuthGuard>
                   <Link
                     key={item.label}
                     href={item.href}
@@ -150,7 +147,6 @@ export default function DraftsPage() {
                 {sidebarSpace.map((item) => {
                   const Icon = item.icon;
                   return (
-    <AuthGuard>
                     <Link
                       key={item.label}
                       href={item.href}
@@ -312,6 +308,5 @@ export default function DraftsPage() {
         </div>
       </div>
     </div>
-    </AuthGuard>
   );
 }

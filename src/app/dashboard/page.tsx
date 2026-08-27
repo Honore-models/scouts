@@ -19,7 +19,6 @@ import {
 } from "@/components/charts/PieChart";
 import type { LegendItem } from "@/components/charts/PieChart";
 import ProfileDropdown from "@/components/layout/ProfileDropdown";
-import AuthGuard from "@/components/auth-guard";
 import type { LiveLinePoint } from "@/components/charts/LiveLineChart";
 import Image from "next/image";
 import Link from "next/link";
@@ -167,12 +166,10 @@ export default function DashboardPage() {
         return [...prev.slice(-200), newPoint];
       });
     }, 2000);
-    return (
-    <AuthGuard>) => clearInterval(interval);
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <AuthGuard>
     <div className="min-h-screen bg-gradient-to-br from-[#f8f7ff] via-[#f3f1ff] to-[#e8e4ff] flex">
       {/* Sidebar */}
       <aside className="w-[220px] min-h-screen bg-white/60 backdrop-blur-xl border-r border-white/40 p-5 flex flex-col fixed left-0 top-0 bottom-0 z-10">
@@ -530,6 +527,5 @@ export default function DashboardPage() {
         </main>
       </div>
     </div>
-    </AuthGuard>
   );
 }

@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ProfileDropdown from "@/components/layout/ProfileDropdown";
-import AuthGuard from "@/components/auth-guard";
 import {
   Home,
   Compass,
@@ -163,7 +162,6 @@ export default function TrendingPage() {
   const [activeFilter, setActiveFilter] = useState("week");
 
   return (
-    <AuthGuard>
     <div className="relative min-h-screen overflow-hidden text-[#111]">
       {/* ── Background ── */}
       <div
@@ -198,7 +196,6 @@ export default function TrendingPage() {
               {sidebarNav.map((item) => {
                 const Icon = item.icon;
                 return (
-    <AuthGuard>
                   <Link
                     key={item.label}
                     href={item.href}
@@ -218,7 +215,6 @@ export default function TrendingPage() {
                 {sidebarSpace.map((item) => {
                   const Icon = item.icon;
                   return (
-    <AuthGuard>
                     <Link
                       key={item.label}
                       href={item.href}
@@ -283,7 +279,6 @@ export default function TrendingPage() {
               {timeFilters.map((filter) => {
                 const Icon = filter.icon;
                 return (
-    <AuthGuard>
                   <button
                     key={filter.id}
                     type="button"
@@ -363,6 +358,5 @@ export default function TrendingPage() {
         </div>
       </div>
     </div>
-    </AuthGuard>
   );
 }

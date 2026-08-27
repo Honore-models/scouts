@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import ProfileDropdown from '@/components/layout/ProfileDropdown';
-import AuthGuard from '@/components/auth-guard';
 import {
   Home,
   Compass,
@@ -36,7 +35,7 @@ const sidebarSpace = [
   { label: 'Feedback', icon: MessageSquare, href: '/feedback' },
 ];
 
-const savedProducts = [dashboard1
+const savedProducts = [
   { id: '1', name: 'FlowBoard', tagline: 'AI powered whiteboard for collaborative teams', maker: 'David Kim', image: '/landing/dashboard-tilt.png', category: 'SaaS', upvotes: 482, comments: 68, rating: 4.8, saved: '2 days ago' },
   { id: '2', name: 'CodeSnap', tagline: 'Beautiful code screenshots in one click', maker: 'Cenat', image: '/landing/code.png', category: 'Developer tools', upvotes: 298, comments: 32, rating: 4.6, saved: '5 days ago' },
   { id: '3', name: 'ShipFast', tagline: 'Ship your MVP in days not months', maker: 'Liam Chen', image: '/landing/code.png', category: 'Developer tools', upvotes: 234, comments: 22, rating: 4.4, saved: '1 week ago' },
@@ -53,7 +52,6 @@ export default function SavedPage() {
   };
 
   return (
-    <AuthGuard>
     <div className="relative min-h-screen overflow-hidden text-[#111]">
       <div
         className="pointer-events-none fixed inset-0 -z-10"
@@ -72,7 +70,6 @@ export default function SavedPage() {
               {sidebarNav.map((item) => {
                 const Icon = item.icon;
                 return (
-    <AuthGuard>
                   <Link key={item.label} href={item.href} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14px] font-medium transition-colors duration-150 ${item.active ? 'bg-[#315BFF]/10 text-[#315BFF]' : 'text-[#555] hover:bg-black/[0.03] hover:text-[#111]'}`}>
                     <Icon className="h-[18px] w-[18px]" />
                     {item.label}
@@ -86,7 +83,6 @@ export default function SavedPage() {
                 {sidebarSpace.map((item) => {
                   const Icon = item.icon;
                   return (
-    <AuthGuard>
                     <Link key={item.label} href={item.href} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14px] font-medium text-[#555] transition-colors duration-150 hover:bg-black/[0.03] hover:text-[#111]">
                       <Icon className="h-[18px] w-[18px]" />
                       {item.label}
@@ -173,6 +169,5 @@ export default function SavedPage() {
         </div>
       </div>
     </div>
-    </AuthGuard>
   );
 }

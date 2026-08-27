@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ProfileDropdown from "@/components/layout/ProfileDropdown";
-import AuthGuard from "@/components/auth-guard";
 import { products } from "@/lib/mock-data";
 import {
   Home,
@@ -62,7 +61,6 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState("foryou");
 
   return (
-    <AuthGuard>
       <div className="relative min-h-screen overflow-hidden text-[#111]">
         {/* ── Background ── */}
         <div
@@ -266,7 +264,7 @@ export default function HomePage() {
                 <div className="overflow-hidden rounded-2xl bg-[#1a1a2e] shadow-[0_8px_30px_rgba(0,0,0,0.15)]">
                   <div className="relative h-[280px]">
                     <Image
-                      src="/landing/dashboard1.png"
+                      src="/landing/dashboard-tilt.png"
                       alt="FlowBoard — AI powered whiteboard"
                       fill
                       className="object-cover"
@@ -545,6 +543,5 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-    </AuthGuard>
   );
 }

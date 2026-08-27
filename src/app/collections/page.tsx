@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ProfileDropdown from "@/components/layout/ProfileDropdown";
-import AuthGuard from "@/components/auth-guard";
 import {
   Home,
   Compass,
@@ -84,7 +83,7 @@ const collections: Collection[] = [
     name: "SaaS Picks",
     description: "Top SaaS products to watch",
     projectCount: 15,
-    isPublic: true,dashboard1
+    isPublic: true,
     image: "/landing/dashboard-tilt.png",
     projects: ["FlowBoard", "DataPulse", "ShipFast"],
   },
@@ -114,7 +113,6 @@ export default function CollectionsPage() {
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   return (
-    <AuthGuard>
     <div className="relative min-h-screen overflow-hidden text-[#111]">
       <div
         className="pointer-events-none fixed inset-0 -z-10"
@@ -148,7 +146,6 @@ export default function CollectionsPage() {
               {sidebarNav.map((item) => {
                 const Icon = item.icon;
                 return (
-    <AuthGuard>
                   <Link
                     key={item.label}
                     href={item.href}
@@ -168,7 +165,6 @@ export default function CollectionsPage() {
                 {sidebarSpace.map((item) => {
                   const Icon = item.icon;
                   return (
-    <AuthGuard>
                     <Link
                       key={item.label}
                       href={item.href}
@@ -312,6 +308,5 @@ export default function CollectionsPage() {
         </div>
       </div>
     </div>
-    </AuthGuard>
   );
 }

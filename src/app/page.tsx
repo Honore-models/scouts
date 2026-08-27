@@ -741,7 +741,7 @@ export default function LandingPage() {
             </div>
             <div className="absolute left-20 top-[180px] w-[380px] rounded-2xl overflow-hidden shadow-2xl rotate-[3deg] z-10">
               <Image
-                src="/landing/dashboard1.png"
+                src="/landing/dashboard-tilt.png"
                 alt="Dashboard preview"
                 width={380}
                 height={340}

@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import ProfileDropdown from '@/components/layout/ProfileDropdown';
-import AuthGuard from '@/components/auth-guard';
 import {
   Home,
   Compass,
@@ -96,7 +95,6 @@ export default function NotificationsPage() {
   const unreadCount = items.filter(n => !n.read).length;
 
   return (
-    <AuthGuard>
     <div className="relative min-h-screen overflow-hidden text-[#111]">
       <div
         className="pointer-events-none fixed inset-0 -z-10"
@@ -115,7 +113,6 @@ export default function NotificationsPage() {
               {sidebarNav.map((item) => {
                 const Icon = item.icon;
                 return (
-    <AuthGuard>
                   <Link key={item.label} href={item.href} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14px] font-medium transition-colors duration-150 ${item.label === 'Home' ? 'bg-[#315BFF]/10 text-[#315BFF]' : 'text-[#555] hover:bg-black/[0.03] hover:text-[#111]'}`}>
                     <Icon className="h-[18px] w-[18px]" />
                     {item.label}
@@ -129,7 +126,6 @@ export default function NotificationsPage() {
                 {sidebarSpace.map((item) => {
                   const Icon = item.icon;
                   return (
-    <AuthGuard>
                     <Link key={item.label} href={item.href} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14px] font-medium text-[#555] transition-colors duration-150 hover:bg-black/[0.03] hover:text-[#111]">
                       <Icon className="h-[18px] w-[18px]" />
                       {item.label}
@@ -185,7 +181,6 @@ export default function NotificationsPage() {
                 const Icon = getIcon(notif.type);
                 const iconColor = getIconColor(notif.type);
                 return (
-    <AuthGuard>
                   <div key={notif.id} className={`flex items-start gap-3.5 rounded-xl p-4 transition-colors duration-150 ${!notif.read ? 'bg-[#315BFF]/[0.03] border border-[#315BFF]/10' : 'bg-white/40 border border-transparent hover:bg-white/60'}`}>
                     {/* Avatar */}
                     <div className="relative shrink-0">
@@ -219,6 +214,5 @@ export default function NotificationsPage() {
         </div>
       </div>
     </div>
-    </AuthGuard>
   );
 }
