@@ -3,7 +3,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useParams } from 'next/navigation';
 import ProfileDropdown from '@/components/layout/ProfileDropdown';
+import {
+  getProductById,
+  getDeveloperById,
+  getSimilarProjects,
+  productComments,
+} from '@/lib/mock-data';
 import {
   Home,
   Compass,
@@ -11,19 +18,15 @@ import {
   Bookmark,
   FileText,
   MessageSquare,
-  Settings,
   Plus,
   Search,
   Bell,
-  ChevronDown,
   Star,
   ArrowUp,
-  Heart,
   ArrowLeft,
   Calendar,
   Reply,
   ThumbsUp,
-  ExternalLink,
 } from 'lucide-react';
 
 /* ─── Data ─────────────────────────────────────────────────── */
@@ -41,54 +44,58 @@ const sidebarSpace = [
   { label: 'Feedback', icon: MessageSquare, href: '/feedback' },
 ];
 
-const features = [
-  { title: 'AI Powered assistance', desc: 'Get smart suggestions, auto generate diagrams, and improve your workflow' },
-  { title: 'Real time collaboration', desc: 'Work together with your team in real time with cursors, comments and voice chat' },
-  { title: 'Infinite canvas', desc: 'No limits create connect and visualize your ideas freely' },
-  { title: 'Multiple templates', desc: 'Use ready made templates for flowcharts mind maps wireframes and more' },
-  { title: 'Export & intergrations', desc: 'Export to PDF ,SVG ,PDF , or intergrate with your favorite tool' },
-];
-
-const techStack = [
-  { name: 'React', icon: '⚛️', color: '#61DAFB' },
-  { name: 'Typescript', icon: 'TS', color: '#3178C6' },
-  { name: 'Nodejs', icon: 'N', color: '#339933' },
-  { name: 'Tailwind css', icon: '~', color: '#06B6D4' },
-  { name: 'MongoDB', icon: 'M', color: '#47A248' },
-];
-
-const tags = ['productivity', 'Collaboration', 'AI', 'SaaS', 'Design'];
-
-const comments = [
-  {
-    id: 1,
-    name: 'Sarah Johnson',
-    avatar: 'SJ',
-    time: '2h ago',
-    text: 'This is exactly what our team needed the AI suggestions are 🔥 and real time collaboration is super smooth',
-    likes: 12,
-  },
-  {
-    id: 2,
-    name: 'Sarah Johnson',
-    avatar: 'SJ',
-    time: '2h ago',
-    text: 'This is exactly what our team needed the AI suggestions are 🔥 and real time collaboration is super smooth',
-    likes: 12,
-  },
-];
-
-const similarProjects = [
-  { name: 'MiroClone', tagline: 'Online collaborative teams', votes: 482 },
-  { name: 'MiroClone', tagline: 'Online collaborative teams', votes: 482 },
-  { name: 'MiroClone', tagline: 'Online collaborative teams', votes: 482 },
-];
-
 /* ─── Page ─────────────────────────────────────────────────── */
 
 export default function ProductDetailPage() {
+  const params = useParams();
+  const id = params.id as string;
+
+  const product = getProductById(id);
+  const developer = product ? getDeveloperById(
+    product.maker === 'David Kim' ? '1' :
+    product.maker === 'Ivan Hirwa' ? '2' :
+    product.maker === 'Cenat' ? '3' :
+    product.maker === 'Mandrake' ? '4' :
+    product.maker === 'Liam Chen' ? '5' :
+    product.maker === 'Alex Park' ? '6' :
+    product.maker === 'Sara Kim' ? '7' :
+    product.maker === 'Mike Ross' ? '8' :
+    product.maker === 'Emma Wilson' ? '9' : ''
+  ) : null;
+  const similarProjects = product ? getSimilarProjects(product.id) : [];
+  const comments = product ? (productComments[product.id] || []) : [];
+
   const [activeTab, setActiveTab] = useState('about');
   const [comment, setComment] = useState('');
+
+  // Not found state
+  if (!product) {
+    return (
+      <div className="relative min-h-screen overflow-hidden text-[#111]">
+        <div
+          className="pointer-events-none fixed inset-0 -z-10"
+          style={{
+            background:
+              'linear-gradient(180deg, #F8F6FF 0%, #F2EEFF 15%, #F0ECFF 30%, #EDE8FF 50%, #E8E0FF 70%, #E4DAFF 100%)',
+          }}
+        />
+        <div className="flex min-h-screen flex-col items-center justify-center px-6">
+          <div className="text-center">
+            <h1 className="text-[32px] font-bold text-[#111]">Product not found</h1>
+            <p className="mt-2 text-[14px] text-[#666]">
+              The product you&apos;re looking for doesn&apos;t exist or has been removed.
+            </p>
+            <Link
+              href="/discover"
+              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#315BFF] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#254DE8]"
+            >
+              Back to Explore
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative min-h-screen overflow-hidden text-[#111]">
@@ -199,16 +206,28 @@ export default function ProductDetailPage() {
             {/* Product Header */}
             <div className="mt-4 flex items-start justify-between gap-6">
               <div className="flex-1">
-                <h1 className="text-[28px] font-bold text-[#111]">FlowBoard</h1>
-                <p className="mt-1 text-[14px] text-[#666]">AI powered whiteboard for collaborative teams</p>
+                <h1 className="text-[28px] font-bold text-[#111]">{product.name}</h1>
+                <p className="mt-1 text-[14px] text-[#666]">{product.tagline}</p>
 
                 {/* Author */}
                 <div className="mt-4 flex items-center gap-3">
-                  <div className="h-8 w-8 overflow-hidden rounded-full bg-[#E8EDFF]">
-                    <div className="flex h-full w-full items-center justify-center text-[11px] font-bold text-[#315BFF]">DK</div>
-                  </div>
-                  <span className="text-[13px] text-[#555]">by David Kim</span>
-                  <span className="text-[12px] text-[#999]">2.5K followers</span>
+                  {developer && (
+                    <Link href={`/profile/${developer.id}`} className="flex items-center gap-2.5">
+                      <div
+                        className="h-8 w-8 overflow-hidden rounded-full flex items-center justify-center text-[11px] font-bold text-white"
+                        style={{ backgroundColor: developer.color }}
+                      >
+                        {developer.avatar}
+                      </div>
+                      <span className="text-[13px] text-[#555]">by {developer.name}</span>
+                      <span className="text-[12px] text-[#999]">
+                        {developer.followers >= 1000
+                          ? `${(developer.followers / 1000).toFixed(1)}K`
+                          : developer.followers}{' '}
+                        followers
+                      </span>
+                    </Link>
+                  )}
                   <button type="button" className="rounded-lg border border-black/10 bg-white px-3 py-1 text-[12px] font-medium text-[#555] hover:bg-gray-50">
                     Follow
                   </button>
@@ -216,7 +235,7 @@ export default function ProductDetailPage() {
 
                 {/* Tags */}
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {tags.map((tag) => (
+                  {product.tags.map((tag) => (
                     <span key={tag} className="rounded-lg bg-white/60 px-3 py-1 text-[12px] font-medium text-[#555] border border-black/[0.04]">
                       {tag}
                     </span>
@@ -228,7 +247,7 @@ export default function ProductDetailPage() {
               <div className="flex flex-col gap-2">
                 <button type="button" className="flex items-center gap-2 rounded-xl bg-[#315BFF] px-5 py-2.5 text-[13px] font-semibold text-white shadow-[0_2px_8px_rgba(49,91,255,0.25)] hover:bg-[#254DE8]">
                   <ArrowUp className="h-4 w-4" />
-                  Upvote
+                  Upvote ({product.upvotes})
                 </button>
                 <button type="button" className="flex items-center gap-2 rounded-xl border border-black/10 bg-white px-5 py-2.5 text-[13px] font-medium text-[#555] hover:bg-gray-50">
                   <Bookmark className="h-4 w-4" />
@@ -241,8 +260,8 @@ export default function ProductDetailPage() {
             <div className="mt-6 overflow-hidden rounded-2xl bg-[#1a1a2e]">
               <div className="relative h-[320px]">
                 <Image
-                  src="/landing/dashboard-tilt.png"
-                  alt="FlowBoard preview"
+                  src={product.image}
+                  alt={`${product.name} preview`}
                   fill
                   className="object-cover"
                   sizes="60vw"
@@ -254,10 +273,10 @@ export default function ProductDetailPage() {
                       Featured today
                     </div>
                     <h2 className="mt-3 text-[24px] font-bold text-white">
-                      Flow<span className="text-[#7958FF]">Board</span>
+                      {product.name}
                     </h2>
-                    <p className="mt-1 text-[13px] text-[#ccc]">AI powered whiteboard for collaborative teams</p>
-                    <p className="mt-2 text-[12px] text-[#999]">by David Kim</p>
+                    <p className="mt-1 text-[13px] text-[#ccc]">{product.tagline}</p>
+                    <p className="mt-2 text-[12px] text-[#999]">by {product.maker}</p>
                   </div>
                 </div>
               </div>
@@ -268,7 +287,7 @@ export default function ProductDetailPage() {
               {[1, 2, 3].map((i) => (
                 <div key={i} className="relative h-[70px] w-[100px] overflow-hidden rounded-lg bg-slate-200">
                   <Image
-                    src="/landing/code.png"
+                    src={product.image}
                     alt={`Screenshot ${i}`}
                     fill
                     className="object-cover"
@@ -306,14 +325,13 @@ export default function ProductDetailPage() {
               {/* About */}
               {activeTab === 'about' && (
                 <div>
-                  <h2 className="text-[18px] font-bold text-[#111]">About FlowBoard</h2>
+                  <h2 className="text-[18px] font-bold text-[#111]">About {product.name}</h2>
                   <p className="mt-3 text-[14px] leading-relaxed text-[#555]">
-                    FlowBoard is an AI powered online whiteboard designed for modern teams. Brainstorm, diagram,
-                    and design together in real time. From idea to execution, keep everything on an infinite canvas
+                    {product.description}
                   </p>
 
                   <div className="mt-6 space-y-4">
-                    {features.map((f) => (
+                    {product.features.map((f) => (
                       <div key={f.title} className="flex gap-3">
                         <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#315BFF]/10">
                           <div className="h-2 w-2 rounded-full bg-[#315BFF]" />
@@ -330,7 +348,7 @@ export default function ProductDetailPage() {
                   <div className="mt-8">
                     <h3 className="text-[16px] font-bold text-[#111]">Tech Stack</h3>
                     <div className="mt-3 flex flex-wrap gap-4">
-                      {techStack.map((t) => (
+                      {product.techStack.map((t) => (
                         <div key={t.name} className="flex items-center gap-2 text-[13px] font-medium text-[#555]">
                           <span className="flex h-6 w-6 items-center justify-center rounded-md text-[10px] font-bold text-white" style={{ backgroundColor: t.color }}>
                             {t.icon}
@@ -348,7 +366,7 @@ export default function ProductDetailPage() {
                 <div>
                   <h2 className="text-[18px] font-bold text-[#111]">Features</h2>
                   <div className="mt-4 space-y-4">
-                    {features.map((f) => (
+                    {product.features.map((f) => (
                       <div key={f.title} className="rounded-xl border border-black/[0.04] bg-white/60 p-4">
                         <p className="text-[14px] font-semibold text-[#111]">{f.title}</p>
                         <p className="mt-1 text-[13px] text-[#666]">{f.desc}</p>
@@ -363,7 +381,7 @@ export default function ProductDetailPage() {
                 <div>
                   <h2 className="text-[18px] font-bold text-[#111]">Tech Stack</h2>
                   <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-                    {techStack.map((t) => (
+                    {product.techStack.map((t) => (
                       <div key={t.name} className="flex items-center gap-3 rounded-xl border border-black/[0.04] bg-white/60 p-4">
                         <span className="flex h-10 w-10 items-center justify-center rounded-lg text-[14px] font-bold text-white" style={{ backgroundColor: t.color }}>
                           {t.icon}
@@ -379,14 +397,20 @@ export default function ProductDetailPage() {
               {activeTab === 'reviews' && (
                 <div>
                   <h2 className="text-[18px] font-bold text-[#111]">Reviews</h2>
-                  <p className="mt-2 text-[14px] text-[#666]">No reviews yet. Be the first to review this project.</p>
+                  <div className="mt-4 flex items-center gap-3 rounded-xl bg-white/60 p-4 border border-black/[0.04]">
+                    <Star className="h-8 w-8 fill-[#F59E0B] text-[#F59E0B]" />
+                    <div>
+                      <p className="text-[24px] font-bold text-[#111]">{product.rating}</p>
+                      <p className="text-[12px] text-[#666]">Based on {product.comments} reviews</p>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
 
             {/* Comments */}
             <div className="mt-8">
-              <h2 className="text-[18px] font-bold text-[#111]">Comments</h2>
+              <h2 className="text-[18px] font-bold text-[#111]">Comments ({comments.length})</h2>
 
               {/* Comment input */}
               <div className="mt-4 flex items-start gap-3">
@@ -433,11 +457,16 @@ export default function ProductDetailPage() {
                     </div>
                   </div>
                 ))}
+                {comments.length === 0 && (
+                  <p className="text-[13px] text-[#666]">No comments yet. Be the first to comment!</p>
+                )}
               </div>
 
-              <button type="button" className="mt-6 w-full rounded-xl border border-[#315BFF] py-2.5 text-[13px] font-medium text-[#315BFF] hover:bg-[#315BFF]/5">
-                View all comments
-              </button>
+              {comments.length > 0 && (
+                <button type="button" className="mt-6 w-full rounded-xl border border-[#315BFF] py-2.5 text-[13px] font-medium text-[#315BFF] hover:bg-[#315BFF]/5">
+                  View all comments
+                </button>
+              )}
             </div>
           </main>
         </div>
@@ -447,24 +476,32 @@ export default function ProductDetailPage() {
             ═══════════════════════════════════════════════════ */}
         <aside className="hidden w-[280px] shrink-0 border-l border-black/[0.04] bg-white/40 p-5 backdrop-blur-sm xl:block">
           {/* About the author */}
-          <div className="rounded-xl border border-black/[0.04] bg-white/60 p-4">
-            <h3 className="text-[13px] font-semibold text-[#111]">About the author</h3>
-            <div className="mt-3 flex items-center gap-2.5">
-              <div className="h-10 w-10 overflow-hidden rounded-full bg-[#E8EDFF]">
-                <div className="flex h-full w-full items-center justify-center text-[12px] font-bold text-[#315BFF]">DK</div>
+          {developer && (
+            <div className="rounded-xl border border-black/[0.04] bg-white/60 p-4">
+              <h3 className="text-[13px] font-semibold text-[#111]">About the author</h3>
+              <div className="mt-3 flex items-center gap-2.5">
+                <div
+                  className="h-10 w-10 overflow-hidden rounded-full flex items-center justify-center text-[12px] font-bold text-white"
+                  style={{ backgroundColor: developer.color }}
+                >
+                  {developer.avatar}
+                </div>
+                <div>
+                  <p className="text-[13px] font-semibold text-[#111]">{developer.name}</p>
+                  <p className="text-[11px] text-[#999]">{developer.handle}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-[13px] font-semibold text-[#111]">David Kim</p>
-                <p className="text-[11px] text-[#999]">@davidkim</p>
-              </div>
+              <p className="mt-3 text-[12px] leading-relaxed text-[#666]">
+                {developer.bio}
+              </p>
+              <Link
+                href={`/profile/${developer.id}`}
+                className="mt-3 block w-full rounded-lg border border-black/10 bg-white py-2 text-center text-[12px] font-medium text-[#555] hover:bg-gray-50"
+              >
+                View Profile
+              </Link>
             </div>
-            <p className="mt-3 text-[12px] leading-relaxed text-[#666]">
-              Building tools that help teams think and create better together.
-            </p>
-            <button type="button" className="mt-3 w-full rounded-lg border border-black/10 bg-white py-2 text-[12px] font-medium text-[#555] hover:bg-gray-50">
-              View Profile
-            </button>
-          </div>
+          )}
 
           {/* Projects stats */}
           <div className="mt-4 rounded-xl border border-black/[0.04] bg-white/60 p-4">
@@ -473,27 +510,21 @@ export default function ProductDetailPage() {
               <div className="flex items-center gap-2.5">
                 <ArrowUp className="h-4 w-4 text-[#34C759]" />
                 <div>
-                  <p className="text-[14px] font-bold text-[#111]">482</p>
+                  <p className="text-[14px] font-bold text-[#111]">{product.upvotes}</p>
                   <p className="text-[11px] text-[#999]">Upvotes</p>
                 </div>
               </div>
               <div className="flex items-center gap-2.5">
                 <MessageSquare className="h-4 w-4 text-[#555]" />
                 <div>
-                  <p className="text-[14px] font-bold text-[#111]">68</p>
+                  <p className="text-[14px] font-bold text-[#111]">{product.comments}</p>
                   <p className="text-[11px] text-[#999]">Comments</p>
                 </div>
               </div>
               <div className="flex items-center gap-2.5">
                 <Star className="h-4 w-4 fill-[#111] text-[#111]" />
                 <div>
-                  <p className="text-[14px] font-bold text-[#111]">4.8</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Calendar className="h-4 w-4 text-[#555]" />
-                <div>
-                  <p className="text-[12px] text-[#666]">Launched on Jan 24,2024</p>
+                  <p className="text-[14px] font-bold text-[#111]">{product.rating}</p>
                 </div>
               </div>
             </div>
@@ -503,7 +534,7 @@ export default function ProductDetailPage() {
           <div className="mt-4 rounded-xl border border-black/[0.04] bg-white/60 p-4">
             <h3 className="text-[13px] font-semibold text-[#111]">Tags</h3>
             <div className="mt-3 flex flex-wrap gap-1.5">
-              {tags.map((tag) => (
+              {product.tags.map((tag) => (
                 <span key={tag} className="rounded-md bg-[#F3F4F6] px-2 py-1 text-[11px] font-medium text-[#666]">
                   {tag}
                 </span>
@@ -515,7 +546,7 @@ export default function ProductDetailPage() {
           <div className="mt-4 rounded-xl border border-black/[0.04] bg-white/60 p-4">
             <h3 className="text-[13px] font-semibold text-[#111]">Built with</h3>
             <div className="mt-3 space-y-2.5">
-              {techStack.map((t) => (
+              {product.techStack.map((t) => (
                 <div key={t.name} className="flex items-center gap-2.5">
                   <span className="flex h-6 w-6 items-center justify-center rounded-md text-[9px] font-bold text-white" style={{ backgroundColor: t.color }}>
                     {t.icon}
@@ -531,9 +562,9 @@ export default function ProductDetailPage() {
             <h3 className="text-[13px] font-semibold text-[#111]">Similar projects</h3>
             <div className="mt-3 space-y-3">
               {similarProjects.map((p, i) => (
-                <div key={i} className="flex items-center gap-3">
+                <Link key={i} href={`/product/${p.id}`} className="flex items-center gap-3">
                   <div className="h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-slate-200">
-                    <Image src="/landing/code.png" alt={p.name} width={40} height={40} className="h-full w-full object-cover" />
+                    <Image src={product.image} alt={p.name} width={40} height={40} className="h-full w-full object-cover" />
                   </div>
                   <div className="flex-1">
                     <p className="text-[12px] font-semibold text-[#111]">{p.name}</p>
@@ -543,12 +574,9 @@ export default function ProductDetailPage() {
                       {p.votes}
                     </p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
-            <button type="button" className="mt-3 w-full rounded-lg border border-black/10 bg-white py-2 text-[11px] font-medium text-[#555] hover:bg-gray-50">
-              View more projects
-            </button>
           </div>
         </aside>
       </div>

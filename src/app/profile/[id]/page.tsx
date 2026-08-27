@@ -3,7 +3,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useParams } from 'next/navigation';
 import ProfileDropdown from '@/components/layout/ProfileDropdown';
+import { getDeveloperById, getDeveloperProjects, developers } from '@/lib/mock-data';
 import {
   Home,
   Compass,
@@ -19,7 +21,6 @@ import {
   Users,
   MapPin,
   Calendar,
-  ExternalLink,
   ArrowLeft,
   Globe,
 } from 'lucide-react';
@@ -39,32 +40,42 @@ const sidebarSpace = [
   { label: 'Feedback', icon: MessageSquare, href: '/feedback' },
 ];
 
-const profileData = {
-  name: 'David Kim',
-  handle: '@davidkim',
-  bio: 'Building tools that help teams think and create better together. Passionate about AI, collaboration, and developer experience.',
-  location: 'San Francisco, CA',
-  website: 'https://davidkim.dev',
-  joinDate: 'March 2023',
-  followers: 2540,
-  following: 186,
-  projects: 12,
-  totalUpvotes: 4820,
-  avatar: 'DK',
-  color: '#315BFF',
-};
-
-const profileProjects = [
-  { id: '1', name: 'FlowBoard', tagline: 'AI powered whiteboard for collaborative teams', image: '/landing/dashboard-tilt.png', upvotes: 1240, comments: 89, rating: 4.9, category: 'SaaS' },
-  { id: '2', name: 'FlowBoard Pro', tagline: 'Enterprise version with advanced AI features', image: '/landing/code.png', upvotes: 856, comments: 52, rating: 4.7, category: 'SaaS' },
-  { id: '3', name: 'TeamSync', tagline: 'Real time collaboration toolkit for remote teams', image: '/landing/delicious.png', upvotes: 634, comments: 38, rating: 4.5, category: 'Developer tools' },
-  { id: '4', name: 'DiagramAI', tagline: 'AI powered diagram and flowchart generator', image: '/landing/kartz.png', upvotes: 423, comments: 25, rating: 4.3, category: 'AI' },
-];
-
 /* ─── Page ─────────────────────────────────────────────────── */
 
 export default function ProfilePage() {
+  const params = useParams();
+  const id = params.id as string;
+
+  const profileData = getDeveloperById(id);
+  const profileProjects = profileData ? getDeveloperProjects(id) : [];
+
   const [activeTab, setActiveTab] = useState('projects');
+
+  // Not found state
+  if (!profileData) {
+    return (
+      <div className="relative min-h-screen overflow-hidden text-[#111]">
+        <div
+          className="pointer-events-none fixed inset-0 -z-10"
+          style={{ background: 'linear-gradient(180deg, #F8F6FF 0%, #F2EEFF 15%, #F0ECFF 30%, #EDE8FF 50%, #E8E0FF 70%, #E4DAFF 100%)' }}
+        />
+        <div className="flex min-h-screen flex-col items-center justify-center px-6">
+          <div className="text-center">
+            <h1 className="text-[32px] font-bold text-[#111]">Developer not found</h1>
+            <p className="mt-2 text-[14px] text-[#666]">
+              The developer profile you&apos;re looking for doesn&apos;t exist.
+            </p>
+            <Link
+              href="/developers"
+              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#315BFF] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#254DE8]"
+            >
+              Browse Developers
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative min-h-screen overflow-hidden text-[#111]">
@@ -85,7 +96,7 @@ export default function ProfilePage() {
               {sidebarNav.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <Link key={item.label} href={item.href} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14px] font-medium transition-colors duration-150 ${item.label === 'Discover' ? 'bg-[#315BFF]/10 text-[#315BFF]' : 'text-[#555] hover:bg-black/[0.03] hover:text-[#111]'}`}>
+                  <Link key={item.label} href={item.href} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14px] font-medium text-[#555] hover:bg-black/[0.03] hover:text-[#111] transition-colors duration-150">
                     <Icon className="h-[18px] w-[18px]" />
                     {item.label}
                   </Link>
@@ -132,14 +143,17 @@ export default function ProfilePage() {
           </header>
 
           <main className="px-6 py-6">
-            <Link href="/discover" className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#555] hover:text-[#111]">
+            <Link href="/developers" className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#555] hover:text-[#111]">
               <ArrowLeft className="h-4 w-4" />
               Back
             </Link>
 
             {/* Profile Header */}
             <div className="mt-6 flex items-start gap-6">
-              <div className="h-20 w-20 shrink-0 rounded-full flex items-center justify-center text-[24px] font-bold text-white" style={{ backgroundColor: profileData.color }}>
+              <div
+                className="h-20 w-20 shrink-0 rounded-full flex items-center justify-center text-[24px] font-bold text-white"
+                style={{ backgroundColor: profileData.color }}
+              >
                 {profileData.avatar}
               </div>
               <div className="flex-1">
@@ -151,7 +165,9 @@ export default function ProfilePage() {
                 <div className="mt-3 flex items-center gap-4 text-[12px] text-[#999]">
                   <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{profileData.location}</span>
                   <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />Joined {profileData.joinDate}</span>
-                  <span className="flex items-center gap-1"><Globe className="h-3 w-3" />{profileData.website}</span>
+                  {profileData.website && (
+                    <span className="flex items-center gap-1"><Globe className="h-3 w-3" />{profileData.website}</span>
+                  )}
                 </div>
               </div>
               <div className="flex gap-2">
@@ -217,6 +233,11 @@ export default function ProfilePage() {
                     </div>
                   </Link>
                 ))}
+                {profileProjects.length === 0 && (
+                  <div className="col-span-full text-center py-12">
+                    <p className="text-[14px] text-[#666]">No projects yet.</p>
+                  </div>
+                )}
               </div>
             )}
 
@@ -230,10 +251,12 @@ export default function ProfilePage() {
                     <MapPin className="h-4 w-4 text-[#999]" />
                     {profileData.location}
                   </div>
-                  <div className="flex items-center gap-3 text-[13px] text-[#555]">
-                    <Globe className="h-4 w-4 text-[#999]" />
-                    <a href={profileData.website} className="text-[#315BFF] hover:underline">{profileData.website}</a>
-                  </div>
+                  {profileData.website && (
+                    <div className="flex items-center gap-3 text-[13px] text-[#555]">
+                      <Globe className="h-4 w-4 text-[#999]" />
+                      <a href={profileData.website} className="text-[#315BFF] hover:underline">{profileData.website}</a>
+                    </div>
+                  )}
                   <div className="flex items-center gap-3 text-[13px] text-[#555]">
                     <Calendar className="h-4 w-4 text-[#999]" />
                     Joined {profileData.joinDate}
