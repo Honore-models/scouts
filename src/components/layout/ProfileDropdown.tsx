@@ -51,7 +51,7 @@ export default function ProfileDropdown({
   const menuItems: MenuItem[] = [
     {
       label: "Profile",
-      href: "/home",
+      href: "/profile/2",
       icon: <User className="h-4 w-4" />,
     },
     {

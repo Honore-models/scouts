@@ -47,7 +47,7 @@ const sidebarItems = [
   { icon: Home, label: "Home", href: "/home" },
   { icon: Compass, label: "Discover", href: "/discover" },
   { icon: TrendingUp, label: "Trending", href: "/trending" },
-  { icon: BookmarkIcon, label: "Bookmarks", href: "/bookmarks" },
+  { icon: BookmarkIcon, label: "Bookmarks", href: "/saved" },
 ];
 
 const yourSpace = [

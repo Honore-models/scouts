@@ -25,7 +25,7 @@ import {
 /* ─── Data ─────────────────────────────────────────────────── */
 
 const sidebarNav = [
-  { label: 'Home', icon: Home, href: '/' },
+  { label: 'Home', icon: Home, href: '/home' },
   { label: 'Discover', icon: Compass, href: '/discover', active: true },
   { label: 'Trending', icon: TrendingUp, href: '/trending' },
   { label: 'Bookmarks', icon: Bookmark, href: '/saved' },
